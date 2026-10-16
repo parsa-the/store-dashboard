@@ -4,7 +4,7 @@ import {
   MoonStar,
   NotepadText,
   Settings,
-  ShoppingBasketIcon,
+  ShoppingBag,
   Square,
   Users,
 } from "lucide-react";
@@ -13,7 +13,7 @@ import { NavLink } from "react-router-dom";
 const SideBar = () => {
   const SideBarItems = [
     { icon: House, route: "/Dashboard", title: "Dashboard" },
-    { icon: ShoppingBasketIcon, route: "/Products", title: "Products" },
+    { icon: ShoppingBag, route: "/Products", title: "Products" },
     { icon: NotepadText, route: "/Orders", title: "Orders" },
     { icon: Users, route: "/Coustomers", title: "Coustomers" },
     { icon: Box, route: "/Categories", title: "Categories" },

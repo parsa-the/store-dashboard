@@ -10,7 +10,7 @@ const Layout = () => {
       <MobileNav/>
       <div className="flex min-w-0 flex-1 flex-col">
         <Header />
-        <div className="flex-1 overflow-y-auto p-4">
+        <div className="flex-1 overflow-y-auto">
           <Outlet />
         </div>
       </div>

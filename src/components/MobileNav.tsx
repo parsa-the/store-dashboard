@@ -18,7 +18,7 @@ const MobileNav = () => {
   ];
 
   return (
-    <nav className="fixed bottom-0 sm:hidden  w-full">
+    <nav className="fixed bg-white border-t-2 border-t-slate-200 bottom-0 sm:hidden  w-full">
       <div className="w-full flex flex-row gap-1">
         {SideBarItems.map((items) => {
           const Icon = items.icon;

@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { type ProductPaginationProps } from "../ProductTypes";
+import { type ProductPaginationProps } from "../pages/products/ProductTypes";
 
 const Pagination = ({
   currentPage,

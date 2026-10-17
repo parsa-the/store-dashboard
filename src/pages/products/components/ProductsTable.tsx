@@ -1,7 +1,7 @@
 import { CircleX, PackageXFreeIcons } from "@hugeicons/core-free-icons";
 import { type ProductsTableProps } from "../ProductTypes";
 import { HugeiconsIcon } from "@hugeicons/react";
-import { Loader } from "lucide-react";
+import { Edit, EllipsisVertical, Loader } from "lucide-react";
 
 const ProductsTable = ({
   isError,
@@ -73,6 +73,7 @@ const ProductsTable = ({
             <th className="px-4 py-3">Price</th>
             <th className="px-4 py-3">Stock</th>
             <th className="px-4 py-3">Status</th>
+            <th className="px-4 py-3">Actions</th>
           </tr>
         </thead>
 
@@ -144,6 +145,14 @@ const ProductsTable = ({
                 >
                   {product.status}
                 </span>
+              </td>
+              <td className="px-4 text-zinc-700 gap-4 flex py-3">
+                <button className="bg-zinc-100 p-1 rounded-md">
+                  <Edit size={20}/>
+                </button>
+                <button>
+                  <EllipsisVertical size={20}/>
+                </button>
               </td>
             </tr>
           ))}

@@ -1,8 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
-
-import { fetchProducts, fetchCategories } from "../../../api/axiosCofig";
-
+import useCategories from "./useCategories";
+import useProducts from "./useProducts";
 import type { ProductSortOption, ProductStatusFilter } from "../ProductTypes";
 
 const PAGE_SIZE = 7;
@@ -15,20 +13,9 @@ export const useProductList = () => {
   const [page, setPage] = useState(1);
 
   // Fetch products
-  const {
-    data: products = [],
-    isLoading,
-    isError,
-    refetch,
-  } = useQuery({
-    queryKey: ["products"],
-    queryFn: fetchProducts,
-  });
+  const { data: products = [], isLoading, isError, refetch } = useProducts();
 
-  const { data: categories = [] } = useQuery({
-    queryKey: ["category"],
-    queryFn: fetchCategories,
-  });
+  const { data: categories = [] } = useCategories();
 
   //search filter sort
   const filteredProducts = useMemo(() => {
@@ -114,4 +101,3 @@ export const useProductList = () => {
     setPage,
   };
 };
-

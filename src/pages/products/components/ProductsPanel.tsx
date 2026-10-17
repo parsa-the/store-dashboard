@@ -1,6 +1,6 @@
 import ProductFilters from "./ProductFilters";
 import ProductsTable from "./ProductsTable";
-import Pagination from "./Pagination";
+import Pagination from "../../../components/Pagination";
 
 import { useProductList } from "../hooks/useProductsList";
 

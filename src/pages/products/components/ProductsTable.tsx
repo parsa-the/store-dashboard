@@ -1,5 +1,5 @@
 import { CircleX, PackageXFreeIcons } from "@hugeicons/core-free-icons";
-import { type ProductsTableProps } from "../ProductTypes";
+import { type Product, type ProductsTableProps } from "../ProductTypes";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Edit, EllipsisVertical, Loader } from "lucide-react";
 
@@ -7,12 +7,13 @@ const ProductsTable = ({
   isError,
   isLoading,
   onRetry,
+  onEditProduct,
   products,
 }: ProductsTableProps) => {
   if (isLoading) {
     return (
       <div className="flex gap-5  flex-col min-h-64 items-center justify-center">
-        <Loader size={30} className="animate-spin" />
+        <Loader size={30} className="text-blue-500 animate-spin" />
         <p className="flex items-center gap-2 flex-col">
           <span className="text-md font-semibold text-zinc-600">
             Loading products...
@@ -92,7 +93,6 @@ const ProductsTable = ({
                 </div>
               </td>
 
-              {/* Product name and SKU */}
               <td className="max-w-64 px-4 py-3">
                 <p
                   title={product.title}
@@ -104,14 +104,12 @@ const ProductsTable = ({
                 <p className="mt-1 text-xs text-slate-400">{product.sku}</p>
               </td>
 
-              {/* Category */}
               <td className="px-4 py-3">
                 <span className="inline-flex max-w-40 truncate rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700">
                   {product.category}
                 </span>
               </td>
 
-              {/* Price */}
               <td className="whitespace-nowrap px-4 py-3 font-medium text-slate-800">
                 {new Intl.NumberFormat("en-US", {
                   style: "currency",
@@ -119,7 +117,6 @@ const ProductsTable = ({
                 }).format(product.price)}
               </td>
 
-              {/* Stock */}
               <td className="whitespace-nowrap px-4 py-3">
                 <span className="inline-flex items-center gap-2 text-xs text-slate-600">
                   <span
@@ -134,7 +131,6 @@ const ProductsTable = ({
                 </span>
               </td>
 
-              {/* Status */}
               <td className="px-4 py-3">
                 <span
                   className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium ${
@@ -147,11 +143,14 @@ const ProductsTable = ({
                 </span>
               </td>
               <td className="px-4 text-zinc-700 gap-4 flex py-3">
-                <button className="bg-zinc-100 p-1 rounded-md">
-                  <Edit size={20}/>
+                <button
+                  onClick={() => onEditProduct(product)}
+                  className="bg-zinc-100 cursor-pointer p-1 rounded-md"
+                >
+                  <Edit size={20} />
                 </button>
                 <button>
-                  <EllipsisVertical size={20}/>
+                  <EllipsisVertical size={20} />
                 </button>
               </td>
             </tr>

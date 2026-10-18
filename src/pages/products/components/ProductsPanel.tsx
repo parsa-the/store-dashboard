@@ -3,8 +3,13 @@ import ProductsTable from "./ProductsTable";
 import Pagination from "../../../components/Pagination";
 
 import { useProductList } from "../hooks/useProductsList";
+import type { Product } from "../ProductTypes";
 
-const ProductsPanel = () => {
+interface ProductsPanelProps {
+  onEditProduct: (product: Product) => void;
+}
+
+const ProductsPanel = ({ onEditProduct }: ProductsPanelProps) => {
   const {
     search,
     category,
@@ -56,6 +61,7 @@ const ProductsPanel = () => {
         products={visibleProducts}
         isLoading={isLoading}
         isError={isError}
+        onEditProduct={onEditProduct}
         onRetry={() => {
           void refetch();
         }}

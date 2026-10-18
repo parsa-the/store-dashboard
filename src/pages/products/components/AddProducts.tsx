@@ -31,21 +31,21 @@ const AddProducts = () => {
     },
   });
 
-  const { mutate, isPending, isSuccess } = useCreateProduct();
+  const { mutate, isPending } = useCreateProduct();
 
-const submitFunc = (data: ProductOutputValue) => {
-  mutate(
-    {
-      values: data,
-      id: Date.now(),
-    },
-    {
-      onSuccess: () => {
-        CloseModal();
+  const submitFunc = (data: ProductOutputValue) => {
+    mutate(
+      {
+        values: data,
+        id: Date.now(),
       },
-    },
-  );
-};
+      {
+        onSuccess: () => {
+          CloseModal();
+        },
+      },
+    );
+  };
 
   const { data: categories = [] } = useCategories();
   return (
@@ -172,7 +172,7 @@ const submitFunc = (data: ProductOutputValue) => {
             <button
               type="submit"
               disabled={isPending}
-              className="rounded-lg bg-blue-500 px-4 py-3 font-semibold text-white transition-colors hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-lg cursor-pointer bg-blue-500 px-4 py-3 font-semibold text-white transition-colors hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isPending ? "Saving..." : "Save Product"}
             </button>

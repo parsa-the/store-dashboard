@@ -46,3 +46,21 @@ export const ProductInputSchema = z.object({
 
 export type ProductInputValue = z.input<typeof ProductInputSchema>;
 export type ProductOutputValue = z.output<typeof ProductInputSchema>;
+
+
+export const EditProductSchema = ProductInputSchema.extend({
+  image: z
+    .instanceof(File)
+    .nullable()
+    .refine(
+      (file) => file === null || file.type.startsWith("image/"),
+      "Please select a valid image",
+    )
+    .refine(
+      (file) => file === null || file.size <= 5 * 1024 * 1024,
+      "Image must be under 5 MB",
+    ),
+});
+
+export type EditProductInputValue = z.input<typeof EditProductSchema>;
+export type EditProductOutputValue = z.output<typeof EditProductSchema>;

@@ -48,6 +48,7 @@ export type ProductsTableProps = {
   products: Product[];
   isLoading: boolean;
   isError: boolean;
+  onEditProduct: (product: Product) => void;
   onRetry: () => void;
 };
 

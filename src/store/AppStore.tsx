@@ -7,6 +7,8 @@ interface IAppStore {
   setTheme: (theme: "Dark" | "Light") => void;
   isAddProductsVisible: boolean;
   setIsAddProductsVisible: () => void;
+  isEditProductVisible: boolean;
+  setIsEditProductVisible: () => void;
 }
 
 const useAppStore = create<IAppStore>()(
@@ -15,11 +17,14 @@ const useAppStore = create<IAppStore>()(
       Theme: "Light",
       isSideBarOpen: false,
       isAddProductsVisible: false,
+      isEditProductVisible: false,
       toggleSideBar: () =>
         set((state) => ({ isSideBarOpen: !state.isSideBarOpen })),
       setTheme: (theme) => set({ Theme: theme }),
       setIsAddProductsVisible: () =>
         set((state) => ({ isAddProductsVisible: !state.isAddProductsVisible })),
+      setIsEditProductVisible: () =>
+        set((state) => ({ isEditProductVisible: !state.isEditProductVisible })),
     }),
     { name: "app-storage" },
   ),

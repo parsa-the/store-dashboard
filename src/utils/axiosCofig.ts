@@ -90,6 +90,13 @@ export async function fetchCategories(): Promise<string[]> {
   return data;
 }
 
+// Get a product by ID.
+export async function fetchProductById(id: number): Promise<Product> {
+  const { data } = await FetchData.get<ApiProduct>(`/products/${id}`);
+
+  return formatProduct(data);
+}
+
 // Create a product.
 
 export async function createProduct(

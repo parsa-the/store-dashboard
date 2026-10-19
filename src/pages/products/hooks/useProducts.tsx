@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchProducts } from "../../../api/axiosCofig";
+import { fetchProducts } from "../../../utils/axiosCofig";
 
 const useProducts = () => {
   return useQuery({

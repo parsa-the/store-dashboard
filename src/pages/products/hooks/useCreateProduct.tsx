@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createProduct } from "../../../api/axiosCofig";
+import { createProduct } from "../../../utils/axiosCofig";
 import type { ProductOutputValue } from "../../../schema";
 import type { Product } from "../ProductTypes";
 

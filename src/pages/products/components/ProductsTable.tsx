@@ -2,6 +2,8 @@ import { CircleX, PackageXFreeIcons } from "@hugeicons/core-free-icons";
 import { type Product, type ProductsTableProps } from "../ProductTypes";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Edit, EllipsisVertical, Loader } from "lucide-react";
+import { useState } from "react";
+import ProductDetailsModal from "./ProductDetails";
 
 const ProductsTable = ({
   isError,
@@ -10,6 +12,7 @@ const ProductsTable = ({
   onEditProduct,
   products,
 }: ProductsTableProps) => {
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   if (isLoading) {
     return (
       <div className="flex gap-5  flex-col min-h-64 items-center justify-center">
@@ -149,13 +152,27 @@ const ProductsTable = ({
                 >
                   <Edit size={20} />
                 </button>
-                <button>
+                <button
+                  type="button"
+                  onClick={() => setSelectedProduct(product)}
+                  className="cursor-pointer rounded-md p-1 hover:bg-zinc-100"
+                >
                   <EllipsisVertical size={20} />
                 </button>
               </td>
             </tr>
           ))}
         </tbody>
+         {selectedProduct && (
+        <ProductDetailsModal
+          product={selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+          onEdit={(product) => {
+            setSelectedProduct(null);
+            onEditProduct(product);
+          }}
+        />
+      )}
       </table>
     </div>
   );

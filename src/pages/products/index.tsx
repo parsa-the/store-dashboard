@@ -7,7 +7,6 @@ import EditProducts from "./components/EditProducts";
 import { useState } from "react";
 import type { Product } from "./ProductTypes";
 
-
 const Products = () => {
   const isCreateProductsVisible = useAppStore((e) => e.isAddProductsVisible);
   const isEditProductsVisible = useAppStore((e) => e.isEditProductVisible);

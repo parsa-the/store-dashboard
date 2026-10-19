@@ -1,4 +1,4 @@
-import { X } from "lucide-react";
+import { Trash, X } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useAppStore from "../../../store/AppStore";
@@ -8,6 +8,7 @@ import {
   type EditProductOutputValue,
   type ProductFormValue,
 } from "../../../schema";
+import useDeleteProducts from "../hooks/useDeleteProducts";
 import useCategories from "../hooks/useCategories";
 import useEditProduct from "../hooks/useEditProduct";
 import type { Product } from "../ProductTypes";
@@ -19,9 +20,7 @@ interface EditProps {
 }
 
 const EditProducts = ({ product }: EditProps) => {
-  const CloseModal = useAppStore(
-    (state) => state.setIsEditProductVisible,
-  );
+  const CloseModal = useAppStore((state) => state.setIsEditProductVisible);
 
   const {
     register,
@@ -40,9 +39,17 @@ const EditProducts = ({ product }: EditProps) => {
       description: product.description,
     },
   });
-
+  const { mutate: deleteMutation, isPending: isDeletePend } =
+    useDeleteProducts();
   const { mutate, isPending } = useEditProduct();
   const { data: categories = [] } = useCategories();
+
+  const handleDelete = () => {
+    deleteMutation(product, {
+      onSuccess: () => CloseModal(),
+      onError: (err: any) => console.error("deleting failed", err),
+    });
+  };
 
   const submitFunc = async (data: EditProductOutputValue) => {
     try {
@@ -76,8 +83,9 @@ const EditProducts = ({ product }: EditProps) => {
 
   return (
     <section className="fixed inset-0 z-100 flex items-center justify-center bg-black/10 p-3 backdrop-blur-xs sm:p-5">
-      <div className="flex h-full max-h-[94dvh] w-full flex-col overflow-hidden rounded-lg bg-white p-4 sm:h-[74%] sm:w-230 sm:p-5">
-        <header className="flex w-full shrink-0 flex-row items-center justify-between gap-3 pb-5">
+      <div className="flex h-full max-h-[94dvh] w-full flex-col overflow-hidden rounded-lg bg-white p-4 sm:h-[75%]
+       sm:w-230 sm:p-5">
+        <header className="flex border-b border-zinc-200 w-full shrink-0 flex-row items-center justify-between gap-3 pb-5">
           <p className="text-xl font-semibold">Edit Product</p>
           <button
             type="button"
@@ -90,20 +98,30 @@ const EditProducts = ({ product }: EditProps) => {
 
         <form
           onSubmit={handleSubmit(submitFunc)}
-          className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto md:flex-row md:justify-between"
+          className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto mt-5 md:flex-row md:justify-between"
         >
-          <Controller
-            name="image"
-            control={control}
-            render={({ field }) => (
-              <EditProductImage
-                image={product.image}
-                onChange={field.onChange}
-                error={errors.image?.message}
-              />
-            )}
-          />
-
+          <div className="flex mt-1 shrink-0 flex-col items-center gap-5 md:w-40">
+            <Controller
+              name="image"
+              control={control}
+              render={({ field }) => (
+                <EditProductImage
+                  image={product.image}
+                  onChange={field.onChange}
+                  error={errors.image?.message}
+                />
+              )}
+            />
+            <button
+              type="button"
+              onClick={handleDelete}
+              disabled={isDeletePend || isPending}
+              className="flex items-center gap-2 text-red-500 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              <Trash size={20} />
+              <span>{isDeletePend ? "Deleting..." : "Remove "}</span>
+            </button>
+          </div>
           <div className="flex min-w-0 flex-1 flex-col gap-3">
             <div className="flex flex-col gap-2">
               <label htmlFor="title">Product Name</label>
@@ -115,9 +133,7 @@ const EditProducts = ({ product }: EditProps) => {
                 {...register("title")}
               />
               {errors.title && (
-                <p className="text-xs text-red-600">
-                  {errors.title.message}
-                </p>
+                <p className="text-xs text-red-600">{errors.title.message}</p>
               )}
             </div>
 
@@ -155,9 +171,7 @@ const EditProducts = ({ product }: EditProps) => {
                   placeholder="0.00"
                 />
                 {errors.price && (
-                  <p className="text-xs text-red-600">
-                    {errors.price.message}
-                  </p>
+                  <p className="text-xs text-red-600">{errors.price.message}</p>
                 )}
               </div>
 
@@ -173,9 +187,7 @@ const EditProducts = ({ product }: EditProps) => {
                   placeholder="0"
                 />
                 {errors.stock && (
-                  <p className="text-xs text-red-600">
-                    {errors.stock.message}
-                  </p>
+                  <p className="text-xs text-red-600">{errors.stock.message}</p>
                 )}
               </div>
             </div>
@@ -191,9 +203,7 @@ const EditProducts = ({ product }: EditProps) => {
                 <option value="Inactive">Inactive</option>
               </select>
               {errors.status && (
-                <p className="text-xs text-red-600">
-                  {errors.status.message}
-                </p>
+                <p className="text-xs text-red-600">{errors.status.message}</p>
               )}
             </div>
 

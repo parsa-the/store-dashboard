@@ -1,5 +1,5 @@
 import Header from "./components/Header";
-import Statistics from "./Statistics";
+import Statistics from "./components/Statistics";
 import ProductsPanel from "./components/ProductsPanel";
 import AddProducts from "./components/AddProducts";
 import useAppStore from "../../store/AppStore";
